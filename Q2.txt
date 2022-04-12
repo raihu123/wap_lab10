@@ -1,0 +1,18 @@
+1.	Explain why do we want sometimes to use setImmediate instead of using setTimeout?
+
+setImmediate is called during the check handler phase of the event loop, while setTimeout is called after the provided
+delayed time and also block I/O. We use setImmediate, because it allows use to schedule a callback within the I/O cycle
+thus guarantees that our callback will run first regardless of any other timer and their delay time. Also, setImmediate
+won't block the event loop, as event recursive call is executed only on the next event loop iteration.
+
+2.	Explain the difference between process.nextTick and setImmediate?
+
+Event loop has multiple phases. Process.nextTick is called at the start of every event loop and in between each event
+phases. While,  setImmediate is called during the check handler phase of the event loop. In fact process.nextTick has
+got high priority than setImmediate.
+
+3.	Does Node.js has window object?
+
+Even though node.js is build on top of javascript (v8 engine), it does not have the window object.
+Window object is a global object in browser. Node, on the other hand runs in the server and hence does not have
+Window as its global objects
